@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Timetable extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -18,7 +22,11 @@ public class Timetable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
         mydb1=new DatabaseHelper(this);
-        Cursor res=mydb1.getAllData();
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        //this will return Day in Three letter format like Mon,Tue,Wed....with first letter caps
+        String s=new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
+        Cursor res=mydb1.getAllData(s);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes

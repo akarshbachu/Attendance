@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     Button add,ok,cancel,display,attendance;
@@ -94,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
         display.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor res=mydb.getAllData();
+                Calendar calendar = Calendar.getInstance();
+                Date date = calendar.getTime();
+                //this will return Day in Three letter format like Mon,Tue,Wed....with first letter caps
+                String s=new SimpleDateFormat("EE", Locale.ENGLISH).format(date.getTime());
+                Cursor res=mydb.getAllData(s);//passing day as argument
+
                 if(res.getCount()==0){
                     showMessage("Error","no data inserted");
                     return;

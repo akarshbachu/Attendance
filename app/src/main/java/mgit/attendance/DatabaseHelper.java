@@ -55,9 +55,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-     public Cursor getAllData(){
+     public Cursor getAllData(String day){
         SQLiteDatabase db=this.getWritableDatabase();
-        Cursor res=db.rawQuery("select * from Timetable where DAY=?", new String[] {"mon"});
+        Cursor res=db.rawQuery("select * from Timetable where DAY=?", new String[] {day});
         return res;
     }
     //for table 2
